@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dynamic Portfolio</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; background: #f9f9f9; }
+        h1 { color: #333; }
+        .project { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        .project h2 { margin-top: 0; color: #007bff; }
+        #loading { font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <h1>My Dynamic Projects</h1>
+    <div id="loading">Loading projects from my AWS database...</div>
+    
+    <div id="projects-container"></div>
+
+    <script>
+        // THIS IS THE MOST IMPORTANT PART
+        // Paste your API Gateway Invoke URL from Part 4 here.
+        const apiUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com/projects";
+
+        // This function runs when the page loads
+        window.addEventListener('load', function() {
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(projects => {
+                    // We got the data!
+                    document.getElementById('loading').style.display = 'none'; // Hide loading message
+                    
+                    const container = document.getElementById('projects-container');
+
+                    // Loop through each project from the database
+                    projects.forEach(project => {
+                        // Create HTML elements for the project
+                        const projectDiv = document.createElement('div');
+                        projectDiv.className = 'project';
+
+                        const title = document.createElement('h2');
+                        title.textContent = project.title;
+
+                        const description = document.createElement('p');
+                        description.textContent = project.description;
+
+                        // Add the title and description to the project div
+                        projectDiv.appendChild(title);
+                        projectDiv.appendChild(description);
+
+                        // Add the new project div to the main container
+                        container.appendChild(projectDiv);
+                    });
+                })
+                .catch(error => {
+                    // If something went wrong
+                    console.error('Error fetching projects:', error);
+                    document.getElementById('loading').textContent = 'Error loading projects. Check the console.';
+                });
+        });
+    </script>
+
+</body>
+</html>
