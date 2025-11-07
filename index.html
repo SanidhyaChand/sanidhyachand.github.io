@@ -6,8 +6,32 @@
     <title>My Dynamic Portfolio</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; background: #f9f9f9; color: #333; }
-        h1 { color: #333; }
-        .project { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        
+        /* NEW: Styles for your name */
+        .header {
+            text-align: center; /* Centers your name */
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem; /* Big font for your name */
+        }
+        .header h2 { /* This is for "My Dynamic Projects" now */
+            margin: 0;
+            font-weight: 400; /* Makes it a lighter subtitle */
+            color: #555;
+        }
+
+        .project { background: #fff; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
+        
+        .project img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .project-content { padding: 1.5rem; }
         .project h2 { margin-top: 0; color: #007bff; }
         .project p { margin-bottom: 1.25rem; }
         .project-links { display: flex; gap: 0.75rem; }
@@ -29,7 +53,9 @@
 </head>
 <body>
 
-    <h1>My Dynamic Projects</h1>
+    <div class="header">
+        <h1>Sanidhya Chand</h1> <h2>My Dynamic Projects</h2>
+    </div>
     <div id="loading">Loading projects from my AWS database...</div>
     
     <div id="projects-container"></div>
@@ -46,13 +72,21 @@
                     document.getElementById('loading').style.display = 'none'; 
                     const container = document.getElementById('projects-container');
 
-                    // Sort projects by ID to keep them in order
                     projects.sort((a, b) => a.projectID.localeCompare(b.projectID));
 
                     projects.forEach(project => {
-                        // --- Create the main project elements ---
                         const projectDiv = document.createElement('div');
                         projectDiv.className = 'project';
+
+                        if (project.imageURL) {
+                            const projectImage = document.createElement('img');
+                            projectImage.src = project.imageURL;
+                            projectImage.alt = project.title; 
+                            projectDiv.appendChild(projectImage);
+                        }
+                        
+                        const contentDiv = document.createElement('div');
+                        contentDiv.className = 'project-content';
 
                         const title = document.createElement('h2');
                         title.textContent = project.title;
@@ -60,33 +94,31 @@
                         const description = document.createElement('p');
                         description.textContent = project.description;
 
-                        // --- NEW: Create the links container ---
                         const linksDiv = document.createElement('div');
                         linksDiv.className = 'project-links';
 
-                        // --- NEW: Check if 'githubURL' exists and create a link ---
                         if (project.githubURL) {
                             const githubLink = document.createElement('a');
                             githubLink.href = project.githubURL;
                             githubLink.textContent = "View on GitHub";
                             githubLink.className = "github";
-                            githubLink.target = "_blank"; // Opens in a new tab
+                            githubLink.target = "_blank"; 
                             linksDiv.appendChild(githubLink);
                         }
                         
-                        // --- NEW: Check if 'resumeURL' exists and create a link ---
                         if (project.resumeURL) {
                             const resumeLink = document.createElement('a');
                             resumeLink.href = project.resumeURL;
                             resumeLink.textContent = "View Resume";
-                            resumeLink.target = "_blank"; // Opens in a new tab
+                            resumeLink.target = "_blank"; 
                             linksDiv.appendChild(resumeLink);
                         }
 
-                        // --- Add all the pieces to the project div ---
-                        projectDiv.appendChild(title);
-                        projectDiv.appendChild(description);
-                        projectDiv.appendChild(linksDiv); // Add the new links div
+                        contentDiv.appendChild(title);
+                        contentDiv.appendChild(description);
+                        contentDiv.appendChild(linksDiv);
+
+                        projectDiv.appendChild(contentDiv);
 
                         container.appendChild(projectDiv);
                     });
@@ -100,5 +132,3 @@
 
 </body>
 </html>
-
-
