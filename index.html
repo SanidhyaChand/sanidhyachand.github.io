@@ -5,10 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Dynamic Portfolio</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; background: #f9f9f9; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; background: #f9f9f9; color: #333; }
         h1 { color: #333; }
-        .project { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        .project { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .project h2 { margin-top: 0; color: #007bff; }
+        .project p { margin-bottom: 1.25rem; }
+        .project-links { display: flex; gap: 0.75rem; }
+        .project-links a { 
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        .project-links a.github { background-color: #333; }
+        .project-links a:hover { background-color: #0056b3; }
+        .project-links a.github:hover { background-color: #555; }
         #loading { font-style: italic; }
     </style>
 </head>
@@ -20,24 +35,22 @@
     <div id="projects-container"></div>
 
     <script>
-        // THIS IS THE MOST IMPORTANT PART
-        // Paste your API Gateway Invoke URL from Part 4 here.
-        const apiUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com/projects";
+        // --- NO CHANGE HERE, JUST MAKE SURE IT'S YOUR URL ---
+        const apiUrl = "https://abcdef123.execute-api.us-east-1.amazonaws.com/projects"; // PASTE YOUR URL
 
-        // This function runs when the page loads
         window.addEventListener('load', function() {
             
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(projects => {
-                    // We got the data!
-                    document.getElementById('loading').style.display = 'none'; // Hide loading message
-                    
+                    document.getElementById('loading').style.display = 'none'; 
                     const container = document.getElementById('projects-container');
 
-                    // Loop through each project from the database
+                    // Sort projects by ID to keep them in order
+                    projects.sort((a, b) => a.projectID.localeCompare(b.projectID));
+
                     projects.forEach(project => {
-                        // Create HTML elements for the project
+                        // --- Create the main project elements ---
                         const projectDiv = document.createElement('div');
                         projectDiv.className = 'project';
 
@@ -47,16 +60,38 @@
                         const description = document.createElement('p');
                         description.textContent = project.description;
 
-                        // Add the title and description to the project div
+                        // --- NEW: Create the links container ---
+                        const linksDiv = document.createElement('div');
+                        linksDiv.className = 'project-links';
+
+                        // --- NEW: Check if 'githubURL' exists and create a link ---
+                        if (project.githubURL) {
+                            const githubLink = document.createElement('a');
+                            githubLink.href = project.githubURL;
+                            githubLink.textContent = "View on GitHub";
+                            githubLink.className = "github";
+                            githubLink.target = "_blank"; // Opens in a new tab
+                            linksDiv.appendChild(githubLink);
+                        }
+                        
+                        // --- NEW: Check if 'resumeURL' exists and create a link ---
+                        if (project.resumeURL) {
+                            const resumeLink = document.createElement('a');
+                            resumeLink.href = project.resumeURL;
+                            resumeLink.textContent = "View Resume";
+                            resumeLink.target = "_blank"; // Opens in a new tab
+                            linksDiv.appendChild(resumeLink);
+                        }
+
+                        // --- Add all the pieces to the project div ---
                         projectDiv.appendChild(title);
                         projectDiv.appendChild(description);
+                        projectDiv.appendChild(linksDiv); // Add the new links div
 
-                        // Add the new project div to the main container
                         container.appendChild(projectDiv);
                     });
                 })
                 .catch(error => {
-                    // If something went wrong
                     console.error('Error fetching projects:', error);
                     document.getElementById('loading').textContent = 'Error loading projects. Check the console.';
                 });
