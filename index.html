@@ -22,31 +22,33 @@
         /* --- Hero (Profile) Section --- */
         .hero {
             display: flex;
-            flex-wrap: wrap; /* Allows stacking on small screens */
+            flex-wrap: wrap; 
             align-items: center;
             justify-content: space-between;
-            min-height: 80vh; /* Takes up most of the screen */
+            min-height: 80vh; 
+            padding: 2rem 0; /* Add padding here instead of container for better visual */
         }
         .hero-left {
-            flex-basis: 50%; /* Takes up 50% of the width */
+            flex-basis: 50%;
             padding-right: 2rem;
+            box-sizing: border-box; /* Include padding in flex-basis calculation */
         }
         .hero-right {
-            flex-basis: 40%; /* Takes up 40% of the width */
+            flex-basis: 40%;
             text-align: center;
         }
 
-        .hero-left h3 { /* "HEY THERE !" */
+        .hero-left h3 { 
             font-weight: 500;
             color: #555;
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
         }
-        .hero-left h1 { /* "I AM SANIDHYA CHAND" */
+        .hero-left h1 { 
             font-size: 3rem;
             margin: 0 0 0.5rem 0;
         }
-        .hero-left h2 { /* "B.Tech EEE Student..." */
+        .hero-left h2 { 
             font-size: 1.5rem;
             font-weight: 400;
             color: #007bff;
@@ -68,11 +70,14 @@
         .hero-links a:hover { background-color: #0056b3; }
         .hero-links a.github:hover { background-color: #555; }
         
+        /* --- Profile Photo Scaling --- */
         .hero-right img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 20px; /* Rounded corners */
+            max-width: 80%; /* Adjusted for better scaling */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 20px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: block; /* Remove extra space below image */
+            margin: 0 auto; /* Center image in its container */
         }
 
         /* --- Projects Section --- */
@@ -91,9 +96,37 @@
             gap: 1.5rem;
         }
 
-        .project { background: #fff; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
-        .project img { width: 100%; height: auto; display: block; border-bottom: 1px solid #ddd; }
-        .project-content { padding: 1.5rem; }
+        /* --- Project Card Layout (Image on Side) --- */
+        .project { 
+            background: #fff; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+            overflow: hidden; 
+            display: flex; /* Make project card a flex container */
+            flex-direction: row; /* Default: image and content side-by-side */
+            align-items: flex-start; /* Align items to the top */
+        }
+        .project-image-container {
+            flex: 0 0 35%; /* Image takes 35% width, no shrinking/growing */
+            max-width: 150px; /* NEW: Max width for project images */
+            min-width: 100px; /* NEW: Min width for project images */
+            height: auto;
+            overflow: hidden;
+            border-right: 1px solid #eee; /* Separator for image and text */
+            margin-right: 1.5rem; /* Space between image and text */
+        }
+        .project img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            border-bottom: none; /* No bottom border as it's on the side */
+        }
+        .project-content { 
+            flex: 1; /* Content takes remaining space */
+            padding: 1.5rem; 
+            box-sizing: border-box;
+        }
         .project h3 { margin-top: 0; color: #007bff; }
         .project p { margin-bottom: 1.25rem; }
         .project-links { display: flex; gap: 0.75rem; }
@@ -101,7 +134,7 @@
         /* --- Responsive Design for small screens --- */
         @media (max-width: 768px) {
             .hero {
-                flex-direction: column-reverse; /* Stacks image on top */
+                flex-direction: column-reverse; 
                 text-align: center;
                 min-height: auto;
             }
@@ -116,12 +149,29 @@
             .hero-links {
                 justify-content: center;
             }
+
+            /* Stack project image on top for small screens */
+            .project {
+                flex-direction: column;
+            }
+            .project-image-container {
+                flex: none; /* Remove flex basis */
+                width: 100%; /* Take full width */
+                max-width: none; /* Remove max-width constraint */
+                border-right: none;
+                border-bottom: 1px solid #eee; /* Add bottom border back */
+                margin-right: 0;
+                margin-bottom: 1rem; /* Space below image */
+            }
+            .project-content {
+                padding-top: 0; /* Remove top padding if image is above */
+            }
         }
     </style>
 </head>
 <body>
 
-    <div classs="container">
+    <div class="container">
         <section class="hero" id="hero-section">
             
             <div class="hero-left">
@@ -167,18 +217,15 @@
             fetch(profileApiUrl)
                 .then(response => response.json())
                 .then(profile => {
-                    // Fill in the data
                     document.getElementById('hero-name').textContent = `I AM ${profile.name.toUpperCase()}`;
                     document.getElementById('hero-title').textContent = profile.title;
                     
-                    // Fill in the photo
                     const heroPhoto = document.getElementById('hero-photo');
                     heroPhoto.src = profile.photoURL;
                     heroPhoto.style.display = 'block';
 
-                    // Build the links
                     const linksContainer = document.getElementById('hero-links');
-                    linksContainer.innerHTML = ''; // Clear "Loading..."
+                    linksContainer.innerHTML = ''; 
 
                     if (profile.resumeURL) {
                         linksContainer.innerHTML += `<a href="${profile.resumeURL}" target="_blank">View Resume</a>`;
@@ -213,8 +260,11 @@
                         
                         let html = '';
 
+                        // --- UPDATED: Image now in its own container ---
                         if (project.imageURL) {
+                            html += '<div class="project-image-container">';
                             html += `<img src="${project.imageURL}" alt="${project.title}">`;
+                            html += '</div>';
                         }
 
                         html += '<div class="project-content">';
@@ -225,13 +275,6 @@
                         if (project.githubURL) {
                             html += `<a href="${project.githubURL}" class="github" target="_blank">View on GitHub</a>`;
                         }
-                        
-                        // --- THIS IS THE SECTION I REMOVED ---
-                        // if (project.resumeURL) {
-                        //     html += `<a href="${project.resumeURL}" target="_blank">View Resume</a>`;
-                        // }
-                        // --- END OF REMOVED SECTION ---
-
                         html += '</div>'; // close project-links
                         html += '</div>'; // close project-content
 
