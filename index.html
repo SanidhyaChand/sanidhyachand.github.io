@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thermalytics</title>
+    <title>ABCDEF Organization</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:wght@900&display=swap" rel="stylesheet">
     
@@ -26,7 +26,12 @@
         .org-hero {
             text-align: center;
             padding: 4rem 1rem;
-            background: linear-gradient(135deg, #ffffff 70%, #f0f6ff 100%);
+            color: #333; /* Darker text for better contrast on light background */
+
+            /* --- UPDATED: Fluid Background --- */
+            background: linear-gradient(-45deg, #f0f6ff, #cce0ff, #f0e6ff, #e1f0ff);
+            background-size: 400% 400%;
+            animation: moveGradient 15s ease infinite;
         }
         .org-hero h1 {
             font-family: 'Merriweather', serif;
@@ -71,8 +76,8 @@
         .team-member-card img {
             width: 150px;
             height: 150px;
-            border-radius: 50%; /* Circular image */
-            object-fit: cover; /* Prevents stretching */
+            border-radius: 50%; 
+            object-fit: cover; 
             border: 3px solid #007bff;
             margin-bottom: 1rem;
         }
@@ -94,7 +99,7 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: 500;
-            margin: 0.25rem 0.25rem; /* Added vertical margin for wrapping */
+            margin: 0.25rem 0.25rem; 
             transition: background-color 0.2s ease;
         }
         .team-links a.github { background-color: #333; }
@@ -102,7 +107,7 @@
         .team-links a.github:hover { background-color: #555; }
 
 
-        /* --- Projects Section (Unchanged) --- */
+        /* --- Projects Section --- */
         .projects-section {
             background: #f9f9f9;
             padding: 2rem 0;
@@ -141,12 +146,19 @@
             }
             .project-content { padding-top: 0; }
         }
+
+        /* --- ADDED: Keyframe animation for the gradient --- */
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
 <body>
 
     <section class="org-hero">
-        <h1>Thermalytics</h1>
+        <h1>ABCDEF</h1>
         <h2>Welcome to Our Organization's Portfolio</h2>
     </section>
 
@@ -179,7 +191,7 @@
             fetchProjects();
         });
 
-        // --- UPDATED: Function to fetch and build the team ---
+        // --- Function to fetch and build the team ---
         function fetchTeamMembers() {
             fetch(teamApiUrl)
                 .then(response => response.json())
@@ -200,12 +212,9 @@
                         
                         html += '<div class="team-links">';
                         
-                        // --- THIS BLOCK IS NEW ---
                         if (member.resumeURL) {
                             html += `<a href="${member.resumeURL}" target="_blank">Resume</a>`;
                         }
-                        // --- END OF NEW BLOCK ---
-
                         if (member.linkedinURL) {
                             html += `<a href="${member.linkedinURL}" target="_blank">LinkedIn</a>`;
                         }
@@ -224,7 +233,7 @@
                 });
         }
 
-        // --- UNCHANGED: Function to fetch projects ---
+        // --- Function to fetch projects ---
         function fetchProjects() {
             fetch(projectsApiUrl)
                 .then(response => response.json())
@@ -266,4 +275,3 @@
 
 </body>
 </html>
-
