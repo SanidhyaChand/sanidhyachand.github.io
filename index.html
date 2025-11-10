@@ -3,73 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dynamic Portfolio</title>
+    <title>Sanidhya Chand - Portfolio</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; background: #f9f9f9; color: #333; }
-        
-        /* NEW: Styles for your name */
-        .header {
-            text-align: center; /* Centers your name */
+        /* --- Global Styles --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #ffffff;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        /* --- Hero (Profile) Section --- */
+        .hero {
+            display: flex;
+            flex-wrap: wrap; /* Allows stacking on small screens */
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh; /* Takes up most of the screen */
+        }
+        .hero-left {
+            flex-basis: 50%; /* Takes up 50% of the width */
+            padding-right: 2rem;
+        }
+        .hero-right {
+            flex-basis: 40%; /* Takes up 40% of the width */
+            text-align: center;
+        }
+
+        .hero-left h3 { /* "HEY THERE !" */
+            font-weight: 500;
+            color: #555;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .hero-left h1 { /* "I AM SANIDHYA CHAND" */
+            font-size: 3rem;
+            margin: 0 0 0.5rem 0;
+        }
+        .hero-left h2 { /* "B.Tech EEE Student..." */
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #007bff;
             margin-bottom: 2rem;
         }
-        .header h1 {
-            margin: 0;
-            font-size: 2.5rem; /* Big font for your name */
-        }
-        .header h2 { /* This is for "My Dynamic Projects" now */
-            margin: 0;
-            font-weight: 400; /* Makes it a lighter subtitle */
-            color: #555;
-        }
 
-        .project { background: #fff; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
-        
-        .project img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .project-content { padding: 1.5rem; }
-        .project h2 { margin-top: 0; color: #007bff; }
-        .project p { margin-bottom: 1.25rem; }
-        .project-links { display: flex; gap: 0.75rem; }
-        .project-links a { 
+        .hero-links a {
             display: inline-block;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             background-color: #007bff;
             color: #ffffff;
             text-decoration: none;
             border-radius: 5px;
             font-weight: 500;
+            margin-right: 0.75rem;
             transition: background-color 0.2s ease;
         }
-        .project-links a.github { background-color: #333; }
-        .project-links a:hover { background-color: #0056b3; }
-        .project-links a.github:hover { background-color: #555; }
-        #loading { font-style: italic; }
+        .hero-links a.github { background-color: #333; }
+        .hero-links a:hover { background-color: #0056b3; }
+        .hero-links a.github:hover { background-color: #555; }
+        
+        .hero-right img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- Projects Section --- */
+        .projects-section {
+            background: #f9f9f9;
+            padding: 2rem 0;
+        }
+        .projects-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project { background: #fff; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
+        .project img { width: 100%; height: auto; display: block; border-bottom: 1px solid #ddd; }
+        .project-content { padding: 1.5rem; }
+        .project h3 { margin-top: 0; color: #007bff; }
+        .project p { margin-bottom: 1.25rem; }
+        .project-links { display: flex; gap: 0.75rem; }
+        
+        /* --- Responsive Design for small screens --- */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse; /* Stacks image on top */
+                text-align: center;
+                min-height: auto;
+            }
+            .hero-left {
+                flex-basis: 100%;
+                padding-right: 0;
+            }
+            .hero-right {
+                flex-basis: 100%;
+                margin-bottom: 2rem;
+            }
+            .hero-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Sanidhya Chand</h1> <h2>My Dynamic Projects</h2>
+    <div classs="container">
+        <section class="hero" id="hero-section">
+            
+            <div class="hero-left">
+                <h3>HEY THERE !</h3>
+                <h1 id="hero-name">Loading...</h1>
+                <h2 id="hero-title">Loading...</h2>
+                <div class="hero-links" id="hero-links">
+                    </div>
+            </div>
+
+            <div class="hero-right">
+                <img id="hero-photo" src="" alt="Profile Photo" style="display:none;">
+            </div>
+
+        </section>
     </div>
-    <div id="loading">Loading projects from my AWS database...</div>
-    
-    <div id="projects-container"></div>
+
+    <section class="projects-section">
+        <div class="container">
+            <h2>My Dynamic Projects</h2>
+            <div id="loading-projects" style="font-style: italic;">Loading projects...</div>
+            <div class="project-grid" id="projects-container">
+                </div>
+        </div>
+    </section>
 
     <script>
-        // --- NO CHANGE HERE, JUST MAKE SURE IT'S YOUR URL ---
-        const apiUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com/projects"; // PASTE YOUR URL
+        // --- IMPORTANT: SET YOUR API URLS HERE ---
+        // Get this from your API Gateway "Invoke URL"
+        const apiBaseUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com"; 
 
+        const profileApiUrl = `${apiBaseUrl}/profile`;
+        const projectsApiUrl = `${apiBaseUrl}/projects`;
+
+        // --- Run everything when the page loads ---
         window.addEventListener('load', function() {
-            
-            fetch(apiUrl)
+            fetchUserProfile();
+            fetchProjects();
+        });
+
+        // --- NEW: Function to fetch and build the profile ---
+        function fetchUserProfile() {
+            fetch(profileApiUrl)
+                .then(response => response.json())
+                .then(profile => {
+                    // Fill in the data
+                    document.getElementById('hero-name').textContent = `I AM ${profile.name.toUpperCase()}`;
+                    document.getElementById('hero-title').textContent = profile.title;
+                    
+                    // Fill in the photo
+                    const heroPhoto = document.getElementById('hero-photo');
+                    heroPhoto.src = profile.photoURL;
+                    heroPhoto.style.display = 'block';
+
+                    // Build the links
+                    const linksContainer = document.getElementById('hero-links');
+                    linksContainer.innerHTML = ''; // Clear "Loading..."
+
+                    if (profile.resumeURL) {
+                        linksContainer.innerHTML += `<a href="${profile.resumeURL}" target="_blank">View Resume</a>`;
+                    }
+                    if (profile.githubURL) {
+                        linksContainer.innerHTML += `<a href="${profile.githubURL}" class="github" target="_blank">View GitHub</a>`;
+                    }
+                    if (profile.linkedinURL) {
+                        linksContainer.innerHTML += `<a href="${profile.linkedinURL}" target="_blank">View LinkedIn</a>`;
+                    }
+                    
+                })
+                .catch(error => {
+                    console.error('Error fetching profile:', error);
+                    document.getElementById('hero-name').textContent = 'Error loading profile.';
+                });
+        }
+
+        // --- UPDATED: Function to fetch and build the projects ---
+        function fetchProjects() {
+            fetch(projectsApiUrl)
                 .then(response => response.json())
                 .then(projects => {
-                    document.getElementById('loading').style.display = 'none'; 
+                    document.getElementById('loading-projects').style.display = 'none'; 
                     const container = document.getElementById('projects-container');
 
                     projects.sort((a, b) => a.projectID.localeCompare(b.projectID));
@@ -77,57 +210,36 @@
                     projects.forEach(project => {
                         const projectDiv = document.createElement('div');
                         projectDiv.className = 'project';
+                        
+                        let html = '';
 
                         if (project.imageURL) {
-                            const projectImage = document.createElement('img');
-                            projectImage.src = project.imageURL;
-                            projectImage.alt = project.title; 
-                            projectDiv.appendChild(projectImage);
+                            html += `<img src="${project.imageURL}" alt="${project.title}">`;
                         }
+
+                        html += '<div class="project-content">';
+                        html += `<h3>${project.title}</h3>`;
+                        html += `<p>${project.description}</p>`;
                         
-                        const contentDiv = document.createElement('div');
-                        contentDiv.className = 'project-content';
-
-                        const title = document.createElement('h2');
-                        title.textContent = project.title;
-
-                        const description = document.createElement('p');
-                        description.textContent = project.description;
-
-                        const linksDiv = document.createElement('div');
-                        linksDiv.className = 'project-links';
-
+                        html += '<div class="project-links">';
                         if (project.githubURL) {
-                            const githubLink = document.createElement('a');
-                            githubLink.href = project.githubURL;
-                            githubLink.textContent = "View on GitHub";
-                            githubLink.className = "github";
-                            githubLink.target = "_blank"; 
-                            linksDiv.appendChild(githubLink);
+                            html += `<a href="${project.githubURL}" class="github" target="_blank">View on GitHub</a>`;
                         }
-                        
                         if (project.resumeURL) {
-                            const resumeLink = document.createElement('a');
-                            resumeLink.href = project.resumeURL;
-                            resumeLink.textContent = "View Resume";
-                            resumeLink.target = "_blank"; 
-                            linksDiv.appendChild(resumeLink);
+                            html += `<a href="${project.resumeURL}" target="_blank">View Resume</a>`;
                         }
+                        html += '</div>'; // close project-links
+                        html += '</div>'; // close project-content
 
-                        contentDiv.appendChild(title);
-                        contentDiv.appendChild(description);
-                        contentDiv.appendChild(linksDiv);
-
-                        projectDiv.appendChild(contentDiv);
-
+                        projectDiv.innerHTML = html;
                         container.appendChild(projectDiv);
                     });
                 })
                 .catch(error => {
                     console.error('Error fetching projects:', error);
-                    document.getElementById('loading').textContent = 'Error loading projects. Check the console.';
+                    document.getElementById('loading-projects').textContent = 'Error loading projects.';
                 });
-        });
+        }
     </script>
 
 </body>
