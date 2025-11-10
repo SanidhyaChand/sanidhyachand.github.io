@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanidhya Chand - Portfolio</title>
+    <title>ABCDEF Organization</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:wght@900&display=swap" rel="stylesheet">
     
     <style>
         /* --- Global Styles --- */
         body {
-            /* UPDATED: Using new Google Font */
             font-family: 'Inter', sans-serif;
             margin: 0;
             background: #ffffff;
@@ -23,91 +22,94 @@
             padding: 2rem 0;
         }
 
-        /* --- Hero (Profile) Section --- */
-        .hero {
-            display: flex;
-            flex-wrap: wrap; 
-            align-items: center;
-            justify-content: space-between;
-            padding: 2rem 0; 
-
-            /* ADDED: Background gradient and new height */
-            background: linear-gradient(135deg, #ffffff 70%, #f0f6ff 100%);
-            min-height: 90vh; 
-            overflow: hidden;
-        }
-        .hero-left {
-            flex-basis: 50%;
-            padding-right: 2rem;
-            box-sizing: border-box; 
-        }
-        .hero-right {
-            flex-basis: 40%;
+        /* --- NEW: Organization Hero Section --- */
+        .org-hero {
             text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, #ffffff 70%, #f0f6ff 100%);
         }
-
-        .hero-left h3 { 
-            font-weight: 500;
-            color: #555;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-        .hero-left h1 { 
-            /* UPDATED: Using new Google Font for your name */
-            font-family: 'Merriweather', serif; 
-            font-size: 3rem;
+        .org-hero h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 3.5rem;
             margin: 0 0 0.5rem 0;
         }
-        .hero-left h2 { 
+        .org-hero h2 {
             font-size: 1.5rem;
             font-weight: 400;
             color: #007bff;
             margin-bottom: 2rem;
         }
 
-        .hero-links a {
+        /* --- NEW: Team Section --- */
+        .team-section {
+            padding: 2rem 0;
+        }
+        .team-section h2 {
+            text-align: center;
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .team-grid {
+            display: grid;
+            /* Creates 3 columns, or wraps to 1 on small screens */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .team-member-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .team-member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .team-member-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Circular image */
+            object-fit: cover; /* Prevents stretching */
+            border: 3px solid #007bff;
+            margin-bottom: 1rem;
+        }
+        .team-member-card h3 {
+            font-size: 1.5rem;
+            margin: 0 0 0.25rem 0;
+        }
+        .team-member-card h4 {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #555;
+            margin: 0 0 1rem 0;
+        }
+        .team-links a {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1rem;
             background-color: #007bff;
             color: #ffffff;
             text-decoration: none;
             border-radius: 5px;
             font-weight: 500;
-            margin-right: 0.75rem;
-            /* UPDATED: Added transition for smooth hover */
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 0 0.25rem;
+            transition: background-color 0.2s ease;
         }
-        .hero-links a.github { background-color: #333; }
-        
-        /* ADDED: Hover effects for buttons */
-        .hero-links a:hover { 
-            background-color: #0056b3; 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-        }
-        .hero-links a.github:hover { 
-            background-color: #555; 
-            /* (Keeps the lift effect from above) */
-            box-shadow: 0 4px 10px rgba(51, 51, 51, 0.3); /* Darker shadow for dark button */
-        }
-        
-        .hero-right img {
-            max-width: 80%; 
-            height: auto; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: block; 
-            margin: 0 auto; 
-        }
+        .team-links a.github { background-color: #333; }
+        .team-links a:hover { background-color: #0056b3; }
+        .team-links a.github:hover { background-color: #555; }
 
-        /* --- Projects Section --- */
+
+        /* --- Projects Section (Unchanged) --- */
         .projects-section {
             background: #f9f9f9;
             padding: 2rem 0;
         }
         .projects-section h2 {
             text-align: center;
-            /* UPDATED: Using new font for consistency */
             font-family: 'Merriweather', serif;
             font-size: 2.5rem;
             margin-bottom: 2rem;
@@ -117,101 +119,48 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
-
         .project { 
-            background: #fff; 
-            border: 1px solid #ddd; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
-            overflow: hidden; 
-            display: flex; 
-            flex-direction: row; 
-            align-items: flex-start; 
+            background: #fff; border: 1px solid #ddd; border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; 
+            display: flex; flex-direction: row; align-items: flex-start; 
         }
         .project-image-container {
-            flex: 0 0 35%; 
-            max-width: 150px; 
-            min-width: 100px; 
-            height: auto;
-            overflow: hidden;
-            border-right: 1px solid #eee; 
-            margin-right: 1.5rem; 
+            flex: 0 0 35%; max-width: 150px; min-width: 100px; height: auto;
+            overflow: hidden; border-right: 1px solid #eee; margin-right: 1.5rem; 
         }
-        .project img { 
-            width: 100%; 
-            height: auto; 
-            display: block; 
-            border-bottom: none; 
-        }
-        .project-content { 
-            flex: 1; 
-            padding: 1.5rem; 
-            box-sizing: border-box;
-        }
+        .project img { width: 100%; height: auto; display: block; border-bottom: none; }
+        .project-content { flex: 1; padding: 1.5rem; box-sizing: border-box; }
         .project h3 { margin-top: 0; color: #007bff; }
         .project p { margin-bottom: 1.25rem; }
         .project-links { display: flex; gap: 0.75rem; }
         
-        /* --- Responsive Design for small screens --- */
         @media (max-width: 768px) {
-            .hero {
-                flex-direction: column-reverse; 
-                text-align: center;
-                min-height: auto;
-            }
-            .hero-left {
-                flex-basis: 100%;
-                padding-right: 0;
-            }
-            .hero-right {
-                flex-basis: 100%;
-                margin-bottom: 2rem;
-            }
-            .hero-links {
-                justify-content: center;
-            }
-
-            .project {
-                flex-direction: column;
-            }
+            .project { flex-direction: column; }
             .project-image-container {
-                flex: none; 
-                width: 100%; 
-                max-width: none; 
-                border-right: none;
-                border-bottom: 1px solid #eee; 
-                margin-right: 0;
-                margin-bottom: 1rem; 
+                flex: none; width: 100%; max-width: none; border-right: none;
+                border-bottom: 1px solid #eee; margin-right: 0; margin-bottom: 1rem; 
             }
-            .project-content {
-                padding-top: 0; 
-            }
+            .project-content { padding-top: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <section class="hero" id="hero-section">
-            
-            <div class="hero-left">
-                <h3>HEY THERE !</h3>
-                <h1 id="hero-name">Loading...</h1>
-                <h2 id="hero-title">Loading...</h2>
-                <div class="hero-links" id="hero-links">
-                    </div>
-            </div>
+    <section class="org-hero">
+        <h1>ABCDEF</h1>
+        <h2>Welcome to Our Organization's Portfolio</h2>
+    </section>
 
-            <div class="hero-right">
-                <img id="hero-photo" src="" alt="Profile Photo" style="display:none;">
+    <section class="team-section container">
+        <h2>Meet the Team</h2>
+        <div id="loading-team" style="font-style: italic; text-align: center;">Loading team...</div>
+        <div class="team-grid" id="team-grid">
             </div>
-
-        </section>
-    </div>
+    </section>
 
     <section class="projects-section">
         <div class="container">
-            <h2>My Dynamic Projects</h2>
+            <h2>Our Dynamic Projects</h2>
             <div id="loading-projects" style="font-style: italic;">Loading projects...</div>
             <div class="project-grid" id="projects-container">
                 </div>
@@ -220,51 +169,58 @@
 
     <script>
         // --- IMPORTANT: SET YOUR API URLS HERE ---
-        // Get this from your API Gateway "Invoke URL"
         const apiBaseUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com"; // PASTE YOUR URL
 
-        const profileApiUrl = `${apiBaseUrl}/profile`;
+        // --- UPDATED: New API endpoints ---
+        const teamApiUrl = `${apiBaseUrl}/team`;
         const projectsApiUrl = `${apiBaseUrl}/projects`;
 
         // --- Run everything when the page loads ---
         window.addEventListener('load', function() {
-            fetchUserProfile();
+            fetchTeamMembers();
             fetchProjects();
         });
 
-        // --- NEW: Function to fetch and build the profile ---
-        function fetchUserProfile() {
-            fetch(profileApiUrl)
+        // --- NEW: Function to fetch and build the team ---
+        function fetchTeamMembers() {
+            fetch(teamApiUrl)
                 .then(response => response.json())
-                .then(profile => {
-                    document.getElementById('hero-name').textContent = `I AM ${profile.name.toUpperCase()}`;
-                    document.getElementById('hero-title').textContent = profile.title;
-                    
-                    const heroPhoto = document.getElementById('hero-photo');
-                    heroPhoto.src = profile.photoURL;
-                    heroPhoto.style.display = 'block';
+                .then(members => {
+                    document.getElementById('loading-team').style.display = 'none'; 
+                    const container = document.getElementById('team-grid');
 
-                    const linksContainer = document.getElementById('hero-links');
-                    linksContainer.innerHTML = ''; 
+                    // Sort members by the 'order' attribute
+                    members.sort((a, b) => a.order - b.order);
 
-                    if (profile.resumeURL) {
-                        linksContainer.innerHTML += `<a href="${profile.resumeURL}" target="_blank">View Resume</a>`;
-                    }
-                    if (profile.githubURL) {
-                        linksContainer.innerHTML += `<a href="${profile.githubURL}" class="github" target="_blank">View GitHub</a>`;
-                    }
-                    if (profile.linkedinURL) {
-                        linksContainer.innerHTML += `<a href="${profile.linkedinURL}" target="_blank">View LinkedIn</a>`;
-                    }
-                    
+                    members.forEach(member => {
+                        const cardDiv = document.createElement('div');
+                        cardDiv.className = 'team-member-card';
+                        
+                        let html = '';
+                        html += `<img src="${member.photoURL}" alt="${member.name}">`;
+                        html += `<h3>${member.name}</h3>`;
+                        html += `<h4>${member.title}</h4>`;
+                        
+                        html += '<div class="team-links">';
+                        if (member.linkedinURL) {
+                            html += `<a href="${member.linkedinURL}" target="_blank">LinkedIn</a>`;
+                        }
+                        if (member.githubURL) {
+                            html += `<a href="${member.githubURL}" class="github" target="_blank">GitHub</a>`;
+                        }
+                        html += '</div>'; // close team-links
+
+                        cardDiv.innerHTML = html;
+                        container.appendChild(cardDiv);
+                    });
                 })
                 .catch(error => {
-                    console.error('Error fetching profile:', error);
-                    document.getElementById('hero-name').textContent = 'Error loading profile.';
+                    console.error('Error fetching team:', error);
+                    document.getElementById('loading-team').textContent = 'Error loading team.';
                 });
         }
 
-        // --- UPDATED: Function to fetch and build the projects ---
+        // --- UNCHANGED: Function to fetch projects ---
         function fetchProjects() {
             fetch(projectsApiUrl)
                 .then(response => response.json())
@@ -279,24 +235,20 @@
                         projectDiv.className = 'project';
                         
                         let html = '';
-
                         if (project.imageURL) {
                             html += '<div class="project-image-container">';
                             html += `<img src="${project.imageURL}" alt="${project.title}">`;
                             html += '</div>';
                         }
-
                         html += '<div class="project-content">';
                         html += `<h3>${project.title}</h3>`;
                         html += `<p>${project.description}</p>`;
-                        
                         html += '<div class="project-links">';
                         if (project.githubURL) {
                             html += `<a href="${project.githubURL}" class="github" target="_blank">View on GitHub</a>`;
                         }
-                        html += '</div>'; // close project-links
-                        html += '</div>'; // close project-content
-
+                        html += '</div>';
+                        html += '</div>';
                         projectDiv.innerHTML = html;
                         container.appendChild(projectDiv);
                     });
