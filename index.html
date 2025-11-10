@@ -151,7 +151,7 @@
     <script>
         // --- IMPORTANT: SET YOUR API URLS HERE ---
         // Get this from your API Gateway "Invoke URL"
-        const apiBaseUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com"; 
+        const apiBaseUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com"; // PASTE YOUR URL
 
         const profileApiUrl = `${apiBaseUrl}/profile`;
         const projectsApiUrl = `${apiBaseUrl}/projects`;
@@ -225,9 +225,13 @@
                         if (project.githubURL) {
                             html += `<a href="${project.githubURL}" class="github" target="_blank">View on GitHub</a>`;
                         }
-                        if (project.resumeURL) {
-                            html += `<a href="${project.resumeURL}" target="_blank">View Resume</a>`;
-                        }
+                        
+                        // --- THIS IS THE SECTION I REMOVED ---
+                        // if (project.resumeURL) {
+                        //     html += `<a href="${project.resumeURL}" target="_blank">View Resume</a>`;
+                        // }
+                        // --- END OF REMOVED SECTION ---
+
                         html += '</div>'; // close project-links
                         html += '</div>'; // close project-content
 
