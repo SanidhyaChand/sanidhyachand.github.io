@@ -22,7 +22,7 @@
             padding: 2rem 0;
         }
 
-        /* --- NEW: Organization Hero Section --- */
+        /* --- Organization Hero Section --- */
         .org-hero {
             text-align: center;
             padding: 4rem 1rem;
@@ -40,7 +40,7 @@
             margin-bottom: 2rem;
         }
 
-        /* --- NEW: Team Section --- */
+        /* --- Team Section --- */
         .team-section {
             padding: 2rem 0;
         }
@@ -52,7 +52,6 @@
         }
         .team-grid {
             display: grid;
-            /* Creates 3 columns, or wraps to 1 on small screens */
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
@@ -95,7 +94,7 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: 500;
-            margin: 0 0.25rem;
+            margin: 0.25rem 0.25rem; /* Added vertical margin for wrapping */
             transition: background-color 0.2s ease;
         }
         .team-links a.github { background-color: #333; }
@@ -171,7 +170,6 @@
         // --- IMPORTANT: SET YOUR API URLS HERE ---
         const apiBaseUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com"; // PASTE YOUR URL
 
-        // --- UPDATED: New API endpoints ---
         const teamApiUrl = `${apiBaseUrl}/team`;
         const projectsApiUrl = `${apiBaseUrl}/projects`;
 
@@ -181,7 +179,7 @@
             fetchProjects();
         });
 
-        // --- NEW: Function to fetch and build the team ---
+        // --- UPDATED: Function to fetch and build the team ---
         function fetchTeamMembers() {
             fetch(teamApiUrl)
                 .then(response => response.json())
@@ -189,7 +187,6 @@
                     document.getElementById('loading-team').style.display = 'none'; 
                     const container = document.getElementById('team-grid');
 
-                    // Sort members by the 'order' attribute
                     members.sort((a, b) => a.order - b.order);
 
                     members.forEach(member => {
@@ -202,6 +199,13 @@
                         html += `<h4>${member.title}</h4>`;
                         
                         html += '<div class="team-links">';
+                        
+                        // --- THIS BLOCK IS NEW ---
+                        if (member.resumeURL) {
+                            html += `<a href="${member.resumeURL}" target="_blank">Resume</a>`;
+                        }
+                        // --- END OF NEW BLOCK ---
+
                         if (member.linkedinURL) {
                             html += `<a href="${member.linkedinURL}" target="_blank">LinkedIn</a>`;
                         }
