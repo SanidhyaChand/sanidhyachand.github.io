@@ -26,9 +26,7 @@
         .org-hero {
             text-align: center;
             padding: 4rem 1rem;
-            color: #333; /* Darker text for better contrast on light background */
-
-            /* --- UPDATED: Fluid Background --- */
+            color: #333; 
             background: linear-gradient(-45deg, #f0f6ff, #cce0ff, #f0e6ff, #e1f0ff);
             background-size: 400% 400%;
             animation: moveGradient 15s ease infinite;
@@ -48,6 +46,10 @@
         /* --- Team Section --- */
         .team-section {
             padding: 2rem 0;
+            /* --- UPDATED: Fluid Background Added --- */
+            background: linear-gradient(-45deg, #f0f6ff, #cce0ff, #f0e6ff, #e1f0ff);
+            background-size: 400% 400%;
+            animation: moveGradient 15s ease infinite;
         }
         .team-section h2 {
             text-align: center;
@@ -56,12 +58,17 @@
             margin-bottom: 2rem;
         }
         .team-grid {
+            /* We move the container styles up to the .team-section */
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
         .team-member-card {
-            background: #fff;
+            background: #fff; /* White cards look good on the gradient */
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
@@ -109,7 +116,7 @@
 
         /* --- Projects Section --- */
         .projects-section {
-            background: #f9f9f9;
+            background: #f9f9f9; /* Kept this plain for contrast */
             padding: 2rem 0;
         }
         .projects-section h2 {
@@ -119,6 +126,11 @@
             margin-bottom: 2rem;
         }
         .project-grid {
+            /* We move the container styles up to the .projects-section */
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
@@ -147,7 +159,7 @@
             .project-content { padding-top: 0; }
         }
 
-        /* --- ADDED: Keyframe animation for the gradient --- */
+        /* --- Keyframe animation for the gradient --- */
         @keyframes moveGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -162,7 +174,7 @@
         <h2>Welcome to Our Organization's Portfolio</h2>
     </section>
 
-    <section class="team-section container">
+    <section class="team-section">
         <h2>Meet the Team</h2>
         <div id="loading-team" style="font-style: italic; text-align: center;">Loading team...</div>
         <div class="team-grid" id="team-grid">
@@ -170,12 +182,10 @@
     </section>
 
     <section class="projects-section">
-        <div class="container">
-            <h2>Our Dynamic Projects</h2>
-            <div id="loading-projects" style="font-style: italic;">Loading projects...</div>
-            <div class="project-grid" id="projects-container">
-                </div>
-        </div>
+        <h2>Our Dynamic Projects</h2>
+        <div id="loading-projects" style="font-style: italic;">Loading projects...</div>
+        <div class="project-grid" id="projects-container">
+            </div>
     </section>
 
     <script>
