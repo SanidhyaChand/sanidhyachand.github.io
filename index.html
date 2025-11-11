@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:wght@900&display=swap" rel="stylesheet">
     
     <style>
-        /* All your styles are unchanged */
+        /* --- Global Styles --- */
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -21,9 +21,13 @@
             margin: 0 auto;
             padding: 2rem 0;
         }
+
+        /* --- Organization Hero Section --- */
         .org-hero {
             text-align: center;
             padding: 4rem 1rem;
+            
+            /* --- UPDATED: New Gradient & Text Color --- */
             color: #ffffff; 
             background: linear-gradient(-45deg, #0f284c, #2472fc, #4a00e0, #8e2de2);
             background-size: 400% 400%;
@@ -37,11 +41,16 @@
         .org-hero h2 {
             font-size: 1.5rem;
             font-weight: 400;
+            /* --- UPDATED: Lighter color for subtitle --- */
             color: #f0f0f0;
             margin-bottom: 2rem;
         }
+
+        /* --- Team Section --- */
         .team-section {
             padding: 2rem 0;
+            
+            /* --- UPDATED: New Gradient & Text Color --- */
             color: #ffffff;
             background: linear-gradient(-45deg, #0f284c, #2472fc, #4a00e0, #8e2de2);
             background-size: 400% 400%;
@@ -52,6 +61,7 @@
             font-family: 'Merriweather', serif;
             font-size: 2.5rem;
             margin-bottom: 2rem;
+            /* --- UPDATED: White text color --- */
             color: #ffffff; 
         }
         .team-grid {
@@ -70,7 +80,7 @@
             text-align: center;
             padding: 2rem;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            color: #333; 
+            color: #333; /* Reset text color for white card */
         }
         .team-member-card:hover {
             transform: translateY(-5px);
@@ -81,6 +91,7 @@
             height: 150px;
             border-radius: 50%; 
             object-fit: cover; 
+            /* --- UPDATED: Border color to white --- */
             border: 3px solid #ffffffa0;
             margin-bottom: 1rem;
         }
@@ -109,6 +120,9 @@
         .team-links a.github { background-color: #333; }
         .team-links a:hover { background-color: #0056b3; }
         .team-links a.github:hover { background-color: #555; }
+
+
+        /* --- Projects Section (Left as white/light gray for contrast) --- */
         .projects-section {
             background: #f9f9f9; 
             padding: 2rem 0;
@@ -118,7 +132,7 @@
             font-family: 'Merriweather', serif;
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            color: #333; 
+            color: #333; /* Reset text color */
         }
         .project-grid {
             width: 90%;
@@ -142,6 +156,8 @@
         .project h3 { margin-top: 0; color: #007bff; }
         .project p { margin-bottom: 1.25rem; }
         .project-links { display: flex; gap: 0.75rem; }
+        
+        /* --- Form Section --- */
         .form-section {
             padding: 2rem 0;
         }
@@ -150,7 +166,7 @@
             font-family: 'Merriweather', serif;
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            color: #333; 
+            color: #333; /* Reset text color */
         }
         #create-project-form {
             max-width: 600px;
@@ -207,6 +223,7 @@
             .project-content { padding-top: 0; }
         }
 
+        /* --- Keyframe animation for the gradient --- */
         @keyframes moveGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -264,9 +281,7 @@
         const createProjectApiUrl = `${apiBaseUrl}/projects`;
 
         // --- Run everything when the page loads ---
-        // --- THIS IS THE FIX ---
-        document.addEventListener('DOMContentLoaded', function() {
-        // --- END OF FIX ---
+        window.addEventListener('load', function() {
             fetchTeamMembers();
             fetchProjects();
             
