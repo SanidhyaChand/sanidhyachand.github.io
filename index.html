@@ -46,7 +46,6 @@
         /* --- Team Section --- */
         .team-section {
             padding: 2rem 0;
-            /* --- UPDATED: Fluid Background Added --- */
             background: linear-gradient(-45deg, #f0f6ff, #cce0ff, #f0e6ff, #e1f0ff);
             background-size: 400% 400%;
             animation: moveGradient 15s ease infinite;
@@ -58,17 +57,15 @@
             margin-bottom: 2rem;
         }
         .team-grid {
-            /* We move the container styles up to the .team-section */
             width: 90%;
             max-width: 1100px;
             margin: 0 auto;
-            
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
         .team-member-card {
-            background: #fff; /* White cards look good on the gradient */
+            background: #fff; 
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
@@ -116,7 +113,7 @@
 
         /* --- Projects Section --- */
         .projects-section {
-            background: #f9f9f9; /* Kept this plain for contrast */
+            background: #f9f9f9; 
             padding: 2rem 0;
         }
         .projects-section h2 {
@@ -126,11 +123,9 @@
             margin-bottom: 2rem;
         }
         .project-grid {
-            /* We move the container styles up to the .projects-section */
             width: 90%;
             max-width: 1100px;
             margin: 0 auto;
-
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
@@ -150,6 +145,62 @@
         .project p { margin-bottom: 1.25rem; }
         .project-links { display: flex; gap: 0.75rem; }
         
+        /* --- NEW: Form Section --- */
+        .form-section {
+            padding: 2rem 0;
+        }
+        .form-section h2 {
+            text-align: center;
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        #create-project-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form-group input[type="text"],
+        .form-group textarea,
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; /* Important */
+        }
+        #submit-project {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        #submit-project:hover {
+            background: #0056b3;
+        }
+        #upload-status {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        
         @media (max-width: 768px) {
             .project { flex-direction: column; }
             .project-image-container {
@@ -159,7 +210,6 @@
             .project-content { padding-top: 0; }
         }
 
-        /* --- Keyframe animation for the gradient --- */
         @keyframes moveGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -170,22 +220,41 @@
 <body>
 
     <section class="org-hero">
-        <h1>Thermalytics</h1>
-        <h2>Welcome to Our Organization's Portfolio</h2>
+        <h1>Thermalytics</h1> <h2>Welcome to Our Organization's Portfolio</h2>
     </section>
 
     <section class="team-section">
-        <h2>Meet the Team</h2>
+        <h2 class="container">Meet the Team</h2>
         <div id="loading-team" style="font-style: italic; text-align: center;">Loading team...</div>
         <div class="team-grid" id="team-grid">
             </div>
     </section>
 
     <section class="projects-section">
-        <h2>Our Dynamic Projects</h2>
+        <h2 class="container">Our Dynamic Projects</h2>
         <div id="loading-projects" style="font-style: italic;">Loading projects...</div>
         <div class="project-grid" id="projects-container">
             </div>
+    </section>
+    
+    <section class="form-section container">
+        <h2>Create a New Project</h2>
+        <form id="create-project-form">
+            <div class="form-group">
+                <label for="title">Project Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="file">Project Image</label>
+                <input type="file" id="file" name="file" required>
+            </div>
+            <button type="submit" id="submit-project">Create Project</button>
+            <div id="upload-status"></div>
+        </form>
     </section>
 
     <script>
@@ -193,13 +262,81 @@
         const apiBaseUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com"; // PASTE YOUR URL
 
         const teamApiUrl = `${apiBaseUrl}/team`;
-        const projectsApiUrl = `${apiBaseUrl}/projects`;
+        const projectsApiUrl = `${apiBaseUrl}/projects`; // This is for GET
+        const createProjectApiUrl = `${apiBaseUrl}/projects`; // This is for POST
 
         // --- Run everything when the page loads ---
         window.addEventListener('load', function() {
             fetchTeamMembers();
             fetchProjects();
+            
+            // NEW: Attach event listener to the new form
+            document.getElementById('create-project-form').addEventListener('submit', handleProjectSubmit);
         });
+
+        // --- NEW: Function to handle project creation ---
+        async function handleProjectSubmit(event) {
+            event.preventDefault(); // Stop the form from refreshing the page
+            
+            const statusDiv = document.getElementById('upload-status');
+            statusDiv.textContent = 'Uploading... Please wait.';
+
+            // 1. Get data from the form
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const file = document.getElementById('file').files[0];
+
+            if (!file) {
+                statusDiv.textContent = 'Please select a file.';
+                return;
+            }
+
+            try {
+                // --- STEP 1: Get the Pre-Signed URL ---
+                // We only send the text data and filename
+                const response1 = await fetch(createProjectApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: title,
+                        description: description,
+                        fileName: file.name
+                    })
+                });
+
+                if (!response1.ok) throw new Error('Failed to get upload URL.');
+
+                const data = await response1.json();
+                const uploadUrl = data.uploadUrl; // This is the "valet key"
+
+                statusDiv.textContent = 'Got URL, uploading file...';
+
+                // --- STEP 2: Upload the file directly to S3 ---
+                const response2 = await fetch(uploadUrl, {
+                    method: 'PUT',
+                    body: file,
+                    headers: {
+                        'Content-Type': file.type // Let S3 know what file type it is
+                    }
+                });
+
+                if (!response2.ok) throw new Error('Failed to upload file.');
+
+                statusDiv.textContent = 'Success! Project created.';
+                
+                // Reset form and reload projects list
+                document.getElementById('create-project-form').reset();
+                
+                // Clear the project list and fetch again
+                document.getElementById('projects-container').innerHTML = '';
+                document.getElementById('loading-projects').style.display = 'block';
+                fetchProjects();
+
+            } catch (error) {
+                console.error('Error creating project:', error);
+                statusDiv.textContent = `Error: ${error.message}`;
+            }
+        }
 
         // --- Function to fetch and build the team ---
         function fetchTeamMembers() {
@@ -219,9 +356,7 @@
                         html += `<img src="${member.photoURL}" alt="${member.name}">`;
                         html += `<h3>${member.name}</h3>`;
                         html += `<h4>${member.title}</h4>`;
-                        
                         html += '<div class="team-links">';
-                        
                         if (member.resumeURL) {
                             html += `<a href="${member.resumeURL}" target="_blank">Resume</a>`;
                         }
@@ -231,8 +366,7 @@
                         if (member.githubURL) {
                             html += `<a href="${member.githubURL}" class="github" target="_blank">GitHub</a>`;
                         }
-                        html += '</div>'; // close team-links
-
+                        html += '</div>';
                         cardDiv.innerHTML = html;
                         container.appendChild(cardDiv);
                     });
@@ -250,6 +384,9 @@
                 .then(projects => {
                     document.getElementById('loading-projects').style.display = 'none'; 
                     const container = document.getElementById('projects-container');
+                    
+                    // Clear container before adding new projects (important for refresh)
+                    container.innerHTML = ''; 
 
                     projects.sort((a, b) => a.projectID.localeCompare(b.projectID));
 
@@ -266,6 +403,7 @@
                         html += '<div class="project-content">';
                         html += `<h3>${project.title}</h3>`;
                         html += `<p>${project.description}</p>`;
+        
                         html += '<div class="project-links">';
                         if (project.githubURL) {
                             html += `<a href="${project.githubURL}" class="github" target="_blank">View on GitHub</a>`;
@@ -285,4 +423,3 @@
 
 </body>
 </html>
-
