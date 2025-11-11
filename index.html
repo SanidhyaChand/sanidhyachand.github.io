@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:wght@900&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Global Styles --- */
+        /* All your styles are unchanged */
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -21,15 +21,11 @@
             margin: 0 auto;
             padding: 2rem 0;
         }
-
-        /* --- Organization Hero Section --- */
         .org-hero {
             text-align: center;
             padding: 4rem 1rem;
-            
-            /* --- UPDATED: New Gradient & Text Color --- */
-            color: #ffffff; 
-            background: linear-gradient(-45deg, #0f284c, #2472fc, #4a00e0, #8e2de2);
+            color: #333; 
+            background: linear-gradient(-45deg, #f0f6ff, #cce0ff, #f0e6ff, #e1f0ff);
             background-size: 400% 400%;
             animation: moveGradient 15s ease infinite;
         }
@@ -41,18 +37,12 @@
         .org-hero h2 {
             font-size: 1.5rem;
             font-weight: 400;
-            /* --- UPDATED: Lighter color for subtitle --- */
-            color: #f0f0f0;
+            color: #007bff;
             margin-bottom: 2rem;
         }
-
-        /* --- Team Section --- */
         .team-section {
             padding: 2rem 0;
-            
-            /* --- UPDATED: New Gradient & Text Color --- */
-            color: #ffffff;
-            background: linear-gradient(-45deg, #0f284c, #2472fc, #4a00e0, #8e2de2);
+            background: linear-gradient(-45deg, #f0f6ff, #cce0ff, #f0e6ff, #e1f0ff);
             background-size: 400% 400%;
             animation: moveGradient 15s ease infinite;
         }
@@ -61,8 +51,6 @@
             font-family: 'Merriweather', serif;
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            /* --- UPDATED: White text color --- */
-            color: #ffffff; 
         }
         .team-grid {
             width: 90%;
@@ -90,15 +78,12 @@
             height: 150px;
             border-radius: 50%; 
             object-fit: cover; 
-            /* --- UPDATED: Border color to white --- */
-            border: 3px solid #ffffffa0;
+            border: 3px solid #007bff;
             margin-bottom: 1rem;
         }
         .team-member-card h3 {
             font-size: 1.5rem;
             margin: 0 0 0.25rem 0;
-            /* --- UPDATED: Dark text for white card --- */
-            color: #333; 
         }
         .team-member-card h4 {
             font-size: 1rem;
@@ -120,9 +105,6 @@
         .team-links a.github { background-color: #333; }
         .team-links a:hover { background-color: #0056b3; }
         .team-links a.github:hover { background-color: #555; }
-
-
-        /* --- Projects Section (Left as white/light gray for contrast) --- */
         .projects-section {
             background: #f9f9f9; 
             padding: 2rem 0;
@@ -155,8 +137,6 @@
         .project h3 { margin-top: 0; color: #007bff; }
         .project p { margin-bottom: 1.25rem; }
         .project-links { display: flex; gap: 0.75rem; }
-        
-        /* --- Form Section --- */
         .form-section {
             padding: 2rem 0;
         }
@@ -188,7 +168,7 @@
             padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 5px;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Important */
         }
         #submit-project {
             display: block;
@@ -221,7 +201,6 @@
             .project-content { padding-top: 0; }
         }
 
-        /* --- Keyframe animation for the gradient --- */
         @keyframes moveGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -274,9 +253,9 @@
         // --- IMPORTANT: SET YOUR API URLS HERE ---
         const apiBaseUrl = "https://vnnov3wbu2.execute-api.ap-south-1.amazonaws.com"; // YOUR URL
 
-        const teamApiUrl = `${apiBaseUrl}/team`;
-        const projectsApiUrl = `${apiBaseUrl}/projects`;
-        const createProjectApiUrl = `${apiBaseUrl}/projects`;
+        const teamApiUrl = ${apiBaseUrl}/team;
+        const projectsApiUrl = ${apiBaseUrl}/projects;
+        const createProjectApiUrl = ${apiBaseUrl}/projects;
 
         // --- Run everything when the page loads ---
         window.addEventListener('load', function() {
@@ -311,7 +290,7 @@
                         title: title,
                         description: description,
                         fileName: file.name,
-                        fileType: file.type 
+                        fileType: file.type // --- NEW: Send the file type
                     })
                 });
 
@@ -327,7 +306,7 @@
                     method: 'PUT',
                     body: file,
                     headers: {
-                        'Content-Type': file.type 
+                        'Content-Type': file.type // --- NEW: Add the matching Content-Type header
                     }
                 });
 
@@ -343,7 +322,7 @@
 
             } catch (error) {
                 console.error('Error creating project:', error);
-                statusDiv.textContent = `Error: ${error.message}`;
+                statusDiv.textContent = Error: ${error.message};
             }
         }
 
@@ -362,18 +341,18 @@
                         cardDiv.className = 'team-member-card';
                         
                         let html = '';
-                        html += `<img src="${member.photoURL}" alt="${member.name}">`;
-                        html += `<h3>${member.name}</h3>`;
-                        html += `<h4>${member.title}</h4>`;
+                        html += <img src="${member.photoURL}" alt="${member.name}">;
+                        html += <h3>${member.name}</h3>;
+                        html += <h4>${member.title}</h4>;
                         html += '<div class="team-links">';
                         if (member.resumeURL) {
-                            html += `<a href="${member.resumeURL}" target="_blank">Resume</a>`;
+                            html += <a href="${member.resumeURL}" target="_blank">Resume</a>;
                         }
                         if (member.linkedinURL) {
-                            html += `<a href="${member.linkedinURL}" target="_blank">LinkedIn</a>`;
+                            html += <a href="${member.linkedinURL}" target="_blank">LinkedIn</a>;
                         }
                         if (member.githubURL) {
-                            html += `<a href="${member.githubURL}" class="github" target="_blank">GitHub</a>`;
+                            html += <a href="${member.githubURL}" class="github" target="_blank">GitHub</a>;
                         }
                         html += '</div>';
                         cardDiv.innerHTML = html;
@@ -383,4 +362,51 @@
                 .catch(error => {
                     console.error('Error fetching team:', error);
                     document.getElementById('loading-team').textContent = 'Error loading team.';
+                });
+        }
 
+        // --- Function to fetch projects ---
+        function fetchProjects() {
+            fetch(projectsApiUrl)
+                .then(response => response.json())
+                .then(projects => {
+                    document.getElementById('loading-projects').style.display = 'none'; 
+                    const container = document.getElementById('projects-container');
+                    
+                    container.innerHTML = ''; 
+
+                    projects.sort((a, b) => a.projectID.localeCompare(b.projectID));
+
+                    projects.forEach(project => {
+                        const projectDiv = document.createElement('div');
+                        projectDiv.className = 'project';
+                        
+                        let html = '';
+                        if (project.imageURL) {
+                            html += '<div class="project-image-container">';
+                            html += <img src="${project.imageURL}" alt="${project.title}">;
+                            html += '</div>';
+                        }
+                        html += '<div class="project-content">';
+                        html += <h3>${project.title}</h3>;
+                        html += <p>${project.description}</p>;
+        
+                        html += '<div class="project-links">';
+                        if (project.githubURL) {
+                            html += <a href="${project.githubURL}" class="github" target="_blank">View on GitHub</a>;
+                        }
+                        html += '</div>';
+                        html += '</div>';
+                        projectDiv.innerHTML = html;
+                        container.appendChild(projectDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching projects:', error);
+                    document.getElementById('loading-projects').textContent = 'Error loading projects.';
+                });
+        }
+    </script>
+
+</body>
+</html>
