@@ -265,7 +265,7 @@
             document.getElementById('create-project-form').addEventListener('submit', handleProjectSubmit);
         });
 
-        // --- NEW: Function to handle project creation ---
+        // --- UPDATED: Function to handle project creation ---
         async function handleProjectSubmit(event) {
             event.preventDefault(); 
             
@@ -289,7 +289,8 @@
                     body: JSON.stringify({
                         title: title,
                         description: description,
-                        fileName: file.name
+                        fileName: file.name,
+                        fileType: file.type // --- NEW: Send the file type
                     })
                 });
 
@@ -301,10 +302,12 @@
                 statusDiv.textContent = 'Got URL, uploading file...';
 
                 // --- STEP 2: Upload the file directly to S3 ---
-                // --- THIS IS THE FIX: The 'headers' block is removed ---
                 const response2 = await fetch(uploadUrl, {
                     method: 'PUT',
-                    body: file
+                    body: file,
+                    headers: {
+                        'Content-Type': file.type // --- NEW: Add the matching Content-Type header
+                    }
                 });
 
                 if (!response2.ok) throw new Error('Failed to upload file.');
